@@ -1,7 +1,25 @@
 <template>
   <div>
-    LISTE DES PARTIES
-    <div>{{ parties }}</div>
+    <h1>
+      <b>LISTE DES PARTIES</b>
+    </h1>
+
+    <table class="table-auto mt-2">
+      <thead>
+        <tr>
+          <th>NOM</th>
+          <th>DESCRIPTION</th>
+          <th>DATE</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="party in parties" :key="party.id">
+          <td>{{ party.label }}</td>
+          <td>{{ party.description }}</td>
+          <td>{{ party.date }}</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </template>
 

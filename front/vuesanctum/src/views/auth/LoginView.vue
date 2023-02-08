@@ -1,12 +1,14 @@
 <template>
-  <div>
+  <div class="text-black">
 
     <input
+      style="color: black;"
       v-model="email"
       type="email"
       placeholder="email"
     />
     <input
+      style="color: black;"
       v-model="password"
       type="password"
       placeholder="password"
