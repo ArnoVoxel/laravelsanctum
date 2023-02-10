@@ -36,7 +36,17 @@ class PartyController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        \Log::info($request->all());
+        $current_user = auth()->user();
+        \Log::info($current_user);
+        $party = new Party();
+        $party->label = $request->label;
+        $party->description = $request->description;
+        $party->date = $request->date;
+        $party->creator_id = $current_user->id;
+        $party->save();
+
+        return $party;
     }
 
     /**

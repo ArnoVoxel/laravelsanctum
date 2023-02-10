@@ -8,4 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class Party extends Model
 {
     use HasFactory;
+    protected $fillable = ['name', 'description', 'date', 'creator_id'];
 }

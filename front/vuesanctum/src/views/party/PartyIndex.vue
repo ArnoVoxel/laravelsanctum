@@ -20,15 +20,21 @@
         </tr>
       </tbody>
     </table>
+    <partyCreate />
+
   </div>
 </template>
 
 <script>
 // import api from "../../api/party/party";
 import axios from "axios";
+import partyCreate from "../../components/party/CreateParty.vue";
 
 export default {
   name: "PartyIndex",
+  components: {
+    partyCreate,
+  },
   data() {
     return {
       parties: [],

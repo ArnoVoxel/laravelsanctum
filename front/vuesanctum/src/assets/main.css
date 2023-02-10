@@ -3,7 +3,11 @@
 @tailwind utilities;
 
 #app {
-  background-color: rgb(142, 142, 142);
+  background-color: rgb(76, 104, 150);
+}
+
+body {
+  background-color: rgb(31, 64, 106);
 }
 
 /* #app {
