@@ -1,25 +1,25 @@
 <template>
-  <form action="post">
-    <div class="grid grid-rows-3 grid-flow-col gap-4 text-black place-content-center">
-      <div class="row-span-1">
-        <input
-          class="form-input px-4 py-3 rounded-full"
-          v-model="email"
-          type="email"
-          placeholder="email"
-        />
-      </div>
-      <div class="row-span-1">
-        <input
-          class="form-input px-4 py-3 rounded-full"
-          v-model="password"
-          type="password"
-          placeholder="password"
-        />
-      </div>
-      <button @click="getLogin">Login</button>
+
+  <div class="grid grid-rows-3 grid-flow-col gap-4 text-black place-content-center">
+    <div class="row-span-1">
+      <input
+        class="form-input px-4 py-3 rounded-full"
+        v-model="email"
+        type="email"
+        placeholder="email"
+      />
     </div>
-  </form>
+    <div class="row-span-1">
+      <input
+        class="form-input px-4 py-3 rounded-full"
+        v-model="password"
+        type="password"
+        placeholder="password"
+      />
+    </div>
+    <button @click="getLogin">Login</button>
+  </div>
+
 </template>
 
 <script>
