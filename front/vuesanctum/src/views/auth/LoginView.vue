@@ -1,20 +1,25 @@
 <template>
-  <div class="text-black">
-
-    <input
-      style="color: black;"
-      v-model="email"
-      type="email"
-      placeholder="email"
-    />
-    <input
-      style="color: black;"
-      v-model="password"
-      type="password"
-      placeholder="password"
-    />
-    <button @click="getLogin">Login</button>
-  </div>
+  <form action="post">
+    <div class="grid grid-rows-3 grid-flow-col gap-4 text-black place-content-center">
+      <div class="row-span-1">
+        <input
+          class="form-input px-4 py-3 rounded-full"
+          v-model="email"
+          type="email"
+          placeholder="email"
+        />
+      </div>
+      <div class="row-span-1">
+        <input
+          class="form-input px-4 py-3 rounded-full"
+          v-model="password"
+          type="password"
+          placeholder="password"
+        />
+      </div>
+      <button @click="getLogin">Login</button>
+    </div>
+  </form>
 </template>
 
 <script>
@@ -36,18 +41,13 @@ export default {
   },
   methods: {
     getLogin() {
-      console.log("getLogin");
       return axios
         .post("http://127.0.0.1:8000/api/login", {
           email: this.email,
           password: this.password,
         })
         .then((response) => {
-          // Auth.login(response.access_token,response.user); //set local storage
-          console.log("connexion OK", response.data);
-          // this.getParties();
           localStorage.setItem("token", response.data.access_token);
-
           this.$router.push({ name: "parties" });
         })
         .catch((error) => {

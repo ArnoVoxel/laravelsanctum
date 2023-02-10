@@ -42,8 +42,10 @@ export default {
   },
   methods: {
     getPartyIndex() {
-      console.log("getPartyIndex");
-
+      // if no token, redirect to login
+      if (!localStorage.getItem("token")) {
+        this.$router.push("/login");
+      }
       axios
         .get("http://127.0.0.1:8000/api/parties", {
         })
