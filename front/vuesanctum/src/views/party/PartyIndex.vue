@@ -1,10 +1,10 @@
 <template>
-  <div>
+  <div class="grid place-content-center">
     <h1>
-      <b>LISTE DES PARTIES</b>
+      <b>Your Parties</b>
     </h1>
 
-    <table class="table-auto mt-2">
+    <table class="table-auto m-2">
       <thead>
         <tr>
           <th>NOM</th>

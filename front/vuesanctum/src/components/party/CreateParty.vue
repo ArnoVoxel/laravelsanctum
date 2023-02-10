@@ -1,6 +1,6 @@
 <template>
   <div>
-    <button @click="open =!open">New Party</button>
+    <button class="btn rounded-full px-2 mb-1 bortder-2 border-yellow-500" @click="open =!open">New Party</button>
     <Teleport to="body">
       <div v-if="open" class="modal card grid grid-rows-5 grid-flow-col gap-4 text-black place-content-center">
         <!-- FIESTA LABEL -->
@@ -32,8 +32,8 @@
           />
         </div>
 
-        <button @click="storeParty">Save the Date !</button>
-        <button @click="open = !open">annuler</button>
+        <button class="btn rounded-full px-2 mb-1" @click="storeParty">Save the Date !</button>
+        <button class="btn rounded-full px-2 mb-1" @click="open = !open">annuler</button>
       </div>
     </Teleport>
   </div>
