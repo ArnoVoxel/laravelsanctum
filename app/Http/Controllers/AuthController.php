@@ -11,8 +11,6 @@ class AuthController extends Controller
 {
     public function register(Request $request)
     {
-        \Log::info('register');
-        \Log::info($request->all());
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
@@ -35,8 +33,6 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
-        \Log::info('login');
-        \Log::info($request->all());
         $validatedData = $request->validate([
             'email' => 'required|string|email|max:255',
             'password' => 'required|string|min:8',
@@ -62,5 +58,15 @@ class AuthController extends Controller
     public function me(Request $request)
     {
         return $request->user();
+    }
+
+    public function logout()
+    {
+        $current_user = Auth::user();
+        $current_user->currentAccessToken()->delete();
+
+        return response()->json([
+            'message' => 'Logged out',
+        ]);
     }
 }

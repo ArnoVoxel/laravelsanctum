@@ -1,5 +1,19 @@
-<script setup>
+<script>
 import { RouterLink, RouterView } from "vue-router";
+
+export default {
+    name: "App",
+    components: {
+        RouterLink,
+        RouterView,
+    },
+    methods: {
+        logout() {
+            localStorage.removeItem("token");
+            this.$router.push({ name: "login" });
+        },
+    },
+};
 </script>
 
 <template>
@@ -12,6 +26,10 @@ import { RouterLink, RouterView } from "vue-router";
                 <RouterLink to="/">Home</RouterLink>
                 /
                 <RouterLink to="/login">Login</RouterLink>
+                /
+                <div @click="logout">
+                <RouterLink to="/login">Logout</RouterLink>
+                </div>
             </nav>
         </div>
     </header>

@@ -25,6 +25,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::middleware('auth:sanctum')->group(function () {
+    Route::post('logout', [AuthController::class, 'logout']);
+
     Route::get('parties', [PartyController::class, 'index']);
     Route::post('parties', [PartyController::class, 'store']);
 });
