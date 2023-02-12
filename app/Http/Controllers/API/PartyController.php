@@ -15,7 +15,8 @@ class PartyController extends Controller
      */
     public function index()
     {
-        return Party::all();
+        $parties = Party::where('creator_id', auth()->user()->id)->get();
+        return $parties;
     }
 
     /**
