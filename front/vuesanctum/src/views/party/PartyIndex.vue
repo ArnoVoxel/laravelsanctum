@@ -1,7 +1,9 @@
 <template>
   <div class="grid place-content-center">
     <h1>
+      <font-awesome-icon :icon="['fas', 'star']" />
       <b>Your Parties</b>
+      <font-awesome-icon :icon="['fas', 'star']" />
     </h1>
 
     <table class="table-auto m-2">

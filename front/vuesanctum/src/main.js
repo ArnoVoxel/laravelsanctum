@@ -9,6 +9,16 @@ import "./assets/main.css";
 
 import axios from "axios";
 
+/* import font awesome icon component */
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+
+/* import the fontawesome core */
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { fas } from '@fortawesome/free-solid-svg-icons'
+import { fab } from '@fortawesome/free-brands-svg-icons'
+import { far } from '@fortawesome/free-regular-svg-icons'
+library.add(fas, fab, far);
+
 // axios.defaults.baseURL = "http://localhost:8000/api";
 axios.interceptors.request.use(config => {
       const token = localStorage.getItem("token");
@@ -17,7 +27,7 @@ axios.interceptors.request.use(config => {
     });
 
 
-const app = createApp(App);
+const app = createApp(App).component('font-awesome-icon', FontAwesomeIcon);
 
 app.use(createPinia());
 app.use(router);
