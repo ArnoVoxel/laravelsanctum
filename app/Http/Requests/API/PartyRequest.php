@@ -1,0 +1,41 @@
+<?php
+
+namespace App\Http\Requests\API;
+
+use Illuminate\Foundation\Http\FormRequest;
+
+class PartyRequest extends FormRequest
+{
+    /**
+     * Determine if the user is authorized to make this request.
+     *
+     * @return bool
+     */
+    public function authorize()
+    {
+        return true;
+    }
+
+    /**
+     * Get the validation rules that apply to the request.
+     *
+     * @return array
+     */
+    public function rules()
+    {
+        return [
+            'label' => 'required|max:50',
+            'description' => 'required',
+            'date' => 'required|date',
+        ];
+    }
+
+    public function attributes()
+    {
+        return [
+            'label' => 'un nom de fiesta',
+            'description' => 'une description descriptive',
+            'date' => 'date de fin du monde',
+        ];
+    }
+}

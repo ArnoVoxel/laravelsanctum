@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Models\Party;
 use Illuminate\Http\Request;
+use App\Http\Requests\API\PartyRequest;
 
 class PartyController extends Controller
 {
@@ -35,11 +36,10 @@ class PartyController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(PartyRequest $request)
     {
-        \Log::info($request->all());
         $current_user = auth()->user();
-        \Log::info($current_user);
+
         $party = new Party();
         $party->label = $request->label;
         $party->description = $request->description;
@@ -58,7 +58,8 @@ class PartyController extends Controller
      */
     public function show(Party $party)
     {
-        //
+        $party = Party::find($party->id);
+        return ['data' => $party];
     }
 
     /**
@@ -79,9 +80,11 @@ class PartyController extends Controller
      * @param  \App\Models\Party  $party
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Party $party)
+    public function update(PartyRequest $request, Party $party)
     {
-        //
+        $data = $request->all();
+        $party->update($data);
+        return $party;
     }
 
     /**

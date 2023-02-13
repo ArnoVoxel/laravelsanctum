@@ -29,4 +29,6 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::get('parties', [PartyController::class, 'index']);
     Route::post('parties', [PartyController::class, 'store']);
+    Route::get('parties/{party}', [PartyController::class, 'show']);
+    Route::put('parties/{party}', [PartyController::class, 'update']);
 });

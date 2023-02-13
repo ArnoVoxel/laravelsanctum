@@ -6,23 +6,40 @@
       <font-awesome-icon :icon="['fas', 'star']" />
     </h1>
 
-    <table class="table-auto m-2">
-      <thead>
-        <tr>
-          <th>NOM</th>
-          <th>DESCRIPTION</th>
-          <th>DATE</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="party in parties" :key="party.id">
-          <td>{{ party.label }}</td>
-          <td>{{ party.description }}</td>
-          <td>{{ party.date }}</td>
-        </tr>
-      </tbody>
-    </table>
-    <partyCreate />
+        <div v-if="loading">
+      <div class="flex justify-center">
+        <div class="loader ease-linear rounded-full border-8 border-t-8 border-gray-200 h-12 w-12 mb-4"></div>
+      </div>
+    </div>
+
+    <div v-else>
+      <table class="w-full text-center ">
+        <thead>
+          <tr>
+            <th class="py-4 px-6">NOM</th>
+            <th class="py-4 px-6">DESCRIPTION</th>
+            <th class="py-4 px-6">DATE</th>
+            <th class="py-4 px-6">actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            v-for="party in parties"
+            :key="party.id"
+          >
+            <td>{{ party.label }}</td>
+            <td>{{ party.description }}</td>
+            <td>{{ party.date }}</td>
+            <td><button class="btn rounded" @click="editParty(party.id)">éditer</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+
+    <div class="grid mt-3 place-content-right">
+      <partyCreate @party-created="party_created"/>
+    </div>
 
   </div>
 </template>
@@ -40,6 +57,7 @@ export default {
   data() {
     return {
       parties: [],
+      loading: false,
     };
   },
   created() {
@@ -50,20 +68,26 @@ export default {
   },
   methods: {
     getPartyIndex() {
+      this.loading = true;
       // if no token, redirect to login
       if (!localStorage.getItem("token")) {
         this.$router.push("/login");
       }
       axios
-        .get("http://127.0.0.1:8000/api/parties", {
-        })
+        .get("http://127.0.0.1:8000/api/parties", {})
         .then((res) => {
-          console.log(res.data);
           this.parties = res.data;
+          this.loading = false;
         })
         .catch((error) => {
           console.log(error);
         });
+    },
+    editParty(party_id) {
+      this.$router.push({ name: "party_show", params: { id: party_id } });
+    },
+    party_created() {
+      this.getPartyIndex();
     },
   },
 };

@@ -29,6 +29,16 @@ const router = createRouter({
             name: "parties",
             component: () => import("../views/party/PartyIndex.vue"),
         },
+        // {
+        //     path: "/parties/create",
+        //     name: "parties_create",
+        //     component: () => import("../views/party/PartyCreate.vue"),
+        // },
+        {
+            path: "/parties/:id",
+            name: "party_show",
+            component: () => import("../views/party/ShowParty.vue"),
+        },
     ],
 });
 
