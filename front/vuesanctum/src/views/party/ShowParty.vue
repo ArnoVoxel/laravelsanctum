@@ -5,9 +5,10 @@
         <div class="loader ease-linear rounded-full border-8 border-t-8 border-gray-200 h-12 w-12 mb-4"></div>
       </div>
     </div>
-    <div 
-    v-else
-    class="card grid grid-rows-5 grid-flow-col gap-4 text-black place-content-center">
+    <div
+      v-else
+      class="card grid grid-rows-5 grid-flow-col gap-4 text-black place-content-center"
+    >
       <!-- FIESTA LABEL -->
       <div class="row-span-1">
         <input
@@ -37,6 +38,39 @@
         />
       </div>
 
+      <!-- FIESTA MEMBERS -->
+      <div>members</div>
+      <div v-if="party.table_members.length != 0">{{ party.table_members }}</div>
+      <div class="card grid grid-row-3 grid-cols-4 gap-4">
+        <button
+          v-if="!createMember"
+          class="rounded-full col-span-1"
+          @click="createMember = true"
+        >
+          <font-awesome-icon :icon="['fas', 'plus']" />
+        </button>
+        <input
+          v-if="createMember"
+          class="col-span-3 form-input px-4 py-3 rounded"
+          v-model="member.name"
+          type="text"
+        />
+        <input
+          v-if="createMember"
+          class="col-span-3 form-input px-4 py-3 rounded"
+          v-model="member.email"
+          type="text"
+        />
+        <button
+          v-if="createMember"
+          class="rounded-full col-span-1"
+          @click="addMember()"
+        >
+          <font-awesome-icon :icon="['fas', 'save']" />
+        </button>
+        <!-- <div v-if="errors.member">{{ errors.member[0] }}</div> -->
+      </div>
+
       <button
         class="btn rounded-full px-2 mb-1"
         @click="updateParty"
@@ -59,6 +93,8 @@ export default {
       open: false,
       party: {},
       loading: false,
+      createMember: false,
+      member: { name: "", email: "" },
     };
   },
   created() {
@@ -73,7 +109,7 @@ export default {
       return axios
         .get("http://127.0.0.1:8000/api/parties/" + this.$route.params.id)
         .then((response) => {
-          console.log(response.data)
+          console.log(response.data);
           this.party = response.data.data;
           this.loading = false;
         })
@@ -88,11 +124,16 @@ export default {
           description: this.party.description,
           date: this.party.date,
         })
-        .then((response) => {})
-          this.$router.push({ name: "parties" })
-        .catch((error) => {
-          console.log(error);
-        });
+        .then((response) => {});
+      this.$router.push({ name: "parties" }).catch((error) => {
+        console.log(error);
+      });
+    },
+    addMember() {
+      this.party.table_members.push(this.member);
+      this.member = { name: "", email: "" };
+      this.createMember = false;
+      console.log(this.table_members);
     },
     getBack() {
       this.$router.push({ name: "parties" });

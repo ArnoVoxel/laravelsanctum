@@ -18,12 +18,12 @@ class CreatePartiesTable extends Migration
             $table->string('label');
             $table->string('description')->nullable();
             $table->date('date')->nullable();
-            $table->unsignedBigInteger('creator_id');
+            $table->unsignedBigInteger('user_id');
             $table->timestamps();
         });
 
         Schema::table('parties', function (Blueprint $table) {
-            $table->foreign('creator_id')->references('id')->on('users');
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 

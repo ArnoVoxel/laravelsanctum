@@ -4,8 +4,10 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Models\Party;
+use App\Models\PartyUser;
 use Illuminate\Http\Request;
 use App\Http\Requests\API\PartyRequest;
+use App\Http\Resources\PartyResource;
 
 class PartyController extends Controller
 {
@@ -16,7 +18,7 @@ class PartyController extends Controller
      */
     public function index()
     {
-        $parties = Party::where('creator_id', auth()->user()->id)->get();
+        $parties = Party::where('user_id', auth()->user()->id)->get();
         return $parties;
     }
 
@@ -38,14 +40,24 @@ class PartyController extends Controller
      */
     public function store(PartyRequest $request)
     {
+        // \log::info(__LINE__);
+        \Log::info($request->all());
         $current_user = auth()->user();
 
         $party = new Party();
         $party->label = $request->label;
         $party->description = $request->description;
         $party->date = $request->date;
-        $party->creator_id = $current_user->id;
+        $party->user_id = $current_user->id;
         $party->save();
+
+        //foreach member in table_members save a new PartyUser
+        foreach($request->table_members as $member) {
+            $partyUser = new PartyUser();
+            $partyUser->party_id = $party->id;
+            $partyUser->email = $member['email'];
+            $partyUser->save();
+        }
 
         return $party;
     }
@@ -58,8 +70,8 @@ class PartyController extends Controller
      */
     public function show(Party $party)
     {
-        $party = Party::find($party->id);
-        return ['data' => $party];
+        $data = PartyResource::make($party);
+        return ['data' => $data];
     }
 
     /**
